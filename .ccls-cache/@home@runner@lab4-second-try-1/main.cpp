@@ -10,40 +10,35 @@ struct activity{
   float time;
 };
 
-void selectionSort(vector<activity> v)
-{
-    int i, j, min_idx;
- 
-    // One by one move boundary of
-    // unsorted subarray
-    for (i = 0; i < v.size() - 1; i++)
-    {
-       
-        // Find the minimum element in
-        // unsorted array
-        min_idx = i;
-        for (j = i+1; j < v.size(); j++)
-        if (v.at(j).time < v.at(min_idx).time)
-            min_idx = j;
- 
-        // Swap the found minimum element
-        // with the first element
-        if(min_idx!=i)
-            swap(&v.at(min_idx), &v.at(i));
-    }
-}
-
 void print_struct(activity a){
-  cout << a.act << endl;
-  cout << a.time << endl;
+  cout << "Act: " << a.act << endl;
+  cout << "Time: " << a.time << endl;
+  cout << "Order: " << a.order << endl;
 }
 
 void print_vector(vector<activity> v){
   for (int i = 0; i < v.size(); i++){
-    cout << "Act: " << v.at(i).act << endl;
-    cout << "Time: " << v.at(i).time << endl;
-    cout << "Order: " << v.at(i).order << endl;
+    print_struct(v.at(i));
   }
+}
+
+bool compareByTime(const activity &a, const activity &b){
+  return a.time < b.time;
+}
+
+//sort vector of structs based on flaot value time
+void sort_activities(vector<activity> &v){
+  cout << "UNSORTED:" << endl;
+  print_vector(v);
+  cout << "END UNSORTED" << endl;
+
+  cout << endl;
+
+  std::sort(v.begin(), v.end(), compareByTime);
+
+  cout << "SORTED:" << endl;
+  print_vector(v);
+  cout << "END SORTED" << endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -55,6 +50,7 @@ int main(int argc, char *argv[]) {
   
   string line;
   int count = 0;
+  //grab input
   while (getline(fin, line)){
     activity current;
     
@@ -87,6 +83,6 @@ int main(int argc, char *argv[]) {
     v.push_back(current);
   }
 
-  print_vector(v);
+  sort_activities(v);
     
 }
