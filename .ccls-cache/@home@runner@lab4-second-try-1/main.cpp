@@ -2,6 +2,7 @@
 #include <fstream>
 #include <algorithm>
 #include <queue>
+#include "ArgumentManager.h"
 using namespace std;
 
 struct activity{
@@ -24,7 +25,7 @@ bool compareByTime(const activity &a, const activity &b){
   return a.time < b.time;
 }
 
-//sort vector of structs based on flaot value time
+//sort vector of structs based on float value time
 void sort_activities(vector<activity> &v){
   cout << "UNSORTED:" << endl;
   print_vector(v);
@@ -46,8 +47,11 @@ void printToFile(vector<activity> v, ofstream &fout){
 }
 
 int main(int argc, char *argv[]) {
-  ifstream fin("input3.txt");
-  ofstream fout("output3.txt");
+
+  ArgumentManager am;
+  
+  ifstream fin(am.get("input"));
+  ofstream fout(am.get("output"));
 
   priority_queue<activity> q;
   vector<activity> v;
