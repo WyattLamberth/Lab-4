@@ -11,9 +11,7 @@ struct activity{
 };
 
 void print_struct(activity a){
-  cout << "Act: " << a.act << endl;
-  cout << "Time: " << a.time << endl;
-  cout << "Order: " << a.order << endl;
+  cout << a.act << " " << a.time << endl;
 }
 
 void print_vector(vector<activity> v){
@@ -41,9 +39,15 @@ void sort_activities(vector<activity> &v){
   cout << "END SORTED" << endl;
 }
 
+void printToFile(vector<activity> v, ofstream &fout){
+  for (int i = 0; i < v.size(); i++){
+    fout << v.at(i).act << endl;
+  }
+}
+
 int main(int argc, char *argv[]) {
-  ifstream fin("input1.txt");
-  ofstream fout("output1.txt");
+  ifstream fin("input3.txt");
+  ofstream fout("output3.txt");
 
   priority_queue<activity> q;
   vector<activity> v;
@@ -84,5 +88,7 @@ int main(int argc, char *argv[]) {
   }
 
   sort_activities(v);
+
+  printToFile(v, fout);
     
 }
